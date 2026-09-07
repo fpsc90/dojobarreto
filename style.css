@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: #000;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#background-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%) scale(1.02);
+  object-fit: cover;
+  z-index: -3;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.58) 35%,
+    rgba(0, 0, 0, 0.24) 70%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  z-index: -2;
+}
+
+.bottom-gradient {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35vh;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: max(30px, 5vw);
+}
+
+.content {
+  color: white;
+  max-width: 800px;
+  animation: fadeIn 1.4s ease forwards;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  opacity: 0.85;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+h1 {
+  font-size: clamp(55px, 9vw, 140px);
+  line-height: 0.82;
+  font-weight: 900;
+  letter-spacing: -5px;
+  text-transform: uppercase;
+}
+
+.content p {
+  margin-top: 35px;
+  font-size: clamp(16px, 1.5vw, 22px);
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.line {
+  width: 100px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.6);
+  margin: 35px 0 20px;
+}
+
+.soon {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  opacity: 0.65;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .container {
+    align-items: flex-end;
+    padding: 35px 25px 70px;
+  }
+
+  .overlay {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.52) 55%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+
+  h1 {
+    letter-spacing: -3px;
+  }
+
+  .content p {
+    margin-top: 25px;
+  }
+}
