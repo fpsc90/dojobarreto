@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-pXZXrxjHWzFp5CgAl1EhpRouq990+ScpWqDe7goNvvI=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-M3f1EC6N2+DM1w8pE11HaMgyeIIMCFim6bBt6FQdC00=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <style id="antiFrame">html{display:none!important}</style>
 <script>if (window.self === window.top) { document.getElementById("antiFrame").remove(); } else { window.top.location = window.self.location.href; }</script>
@@ -511,7 +511,7 @@ const CONFIG = {
   // Estatísticas de visitas (GoatCounter, sem cookies). goatcounter: código da conta, ex.: "dojobarreto".
   // Vazio = desligado. Só conta acessos feitos no domínio abaixo (prévias e testes não contam).
   estatisticas: {
-    goatcounter: "",
+    goatcounter: "dojobarretosite",
     dominio: "www.dojobarreto.com.br",
   },
 
