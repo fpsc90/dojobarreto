@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-Z2/tQKtm0NDnVsLPKmpNUlq2UM+XTPEdRp4DYvd9Eu4=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-osJe/+mYE9IdvsBfmB3nrJEA8Hxi4+VsJpMW9fQMkeg=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <style id="antiFrame">html{display:none!important}</style>
 <script>if (window.self === window.top) { document.getElementById("antiFrame").remove(); } else { window.top.location = window.self.location.href; }</script>
@@ -65,7 +65,7 @@ h1,h2,h3{font-family:var(--head);text-transform:uppercase;letter-spacing:.12em;f
 section{padding:120px 0;border-top:1px solid var(--line)}
 .kicker{font-family:var(--head);color:var(--accent);letter-spacing:.35em;font-size:.8rem;text-transform:uppercase;margin-bottom:18px}
 h2{font-size:clamp(2rem,5vw,3.6rem);margin-bottom:28px}
-.lead{color:var(--muted);max-width:640px;font-size:1.05rem}
+.lead{color:var(--muted);max-width:640px;font-size:1.05rem;text-wrap:pretty}
 .btn{display:inline-block;border:1px solid var(--fg);padding:16px 40px;font-family:var(--head);text-transform:uppercase;letter-spacing:.25em;font-size:.85rem;transition:.3s}
 .btn:hover{background:var(--fg);color:#000}
 .btn.solid{background:linear-gradient(105deg,var(--g2),var(--g4) 35%,var(--g3) 55%,var(--g2) 80%,var(--g3));background-size:220% 100%;color:#1b130d;border-color:var(--g3);font-weight:500}
@@ -163,7 +163,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:8
 .prof .bio{min-width:0;max-width:680px}
 .prof h3{font-size:clamp(1.6rem,3vw,2.3rem)}
 .prof .faixa{color:var(--accent);font-family:var(--head);letter-spacing:.2em;font-size:.8rem;text-transform:uppercase;margin:8px 0 26px}
-.prof p{color:var(--muted);font-size:.98rem}
+.prof p{color:var(--muted);font-size:.98rem;text-wrap:pretty;hyphens:manual}
+.nw{white-space:nowrap}
 .prof p+p{margin-top:14px}
 .feitos{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
 .feitos li{border:1px solid rgba(201,165,133,.45);color:var(--g4);font-family:var(--head);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;padding:7px 12px}
@@ -533,8 +534,11 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&l
 // Só aceita links http(s), mailto e tel; qualquer outra coisa (ex.: javascript:) vira "#"
 const safeUrl = u => { try { const x = new URL(String(u), location.href); return ["https:", "http:", "mailto:", "tel:"].includes(x.protocol) ? String(u) : "#"; } catch (e) { return "#"; } };
 // Texto com siglas clicáveis (CBJ, CBJJ, IBJJF...)
-const SIG_RE = new RegExp("\\b(" + Object.keys(C.siglas || {}).sort((a, b) => b.length - a.length).join("|") + ")\\b", "g");
-const sig = t => Object.keys(C.siglas || {}).length ? esc(t).replace(SIG_RE, m => `<button type="button" class="sig" data-sig="${m}" aria-expanded="false" aria-haspopup="dialog">${m}</button>`) : esc(t);
+// a sigla fica "colada" ao parêntese e à pontuação vizinhos, para o ponto final nunca cair sozinho na linha de baixo
+const SIG_RE = new RegExp("(\\(?)\\b(" + Object.keys(C.siglas || {}).sort((a, b) => b.length - a.length).join("|") + ")\\b([).,;:!?]*)", "g");
+const sig = t => Object.keys(C.siglas || {}).length
+  ? esc(t).replace(SIG_RE, (m, antes, s, depois) => `<span class="nw">${antes}<button type="button" class="sig" data-sig="${s}" aria-expanded="false" aria-haspopup="dialog">${s}</button>${depois}</span>`)
+  : esc(t);
 const emBreve = v => v ? esc(v) : `<span class="soon-txt">${esc(C.emBreve)}</span>`;
 // Botão de aula experimental: ativo só quando o WhatsApp estiver ligado
 const aulaBtn = (cls, label) => C.whatsappAtivo
