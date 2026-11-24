@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-osJe/+mYE9IdvsBfmB3nrJEA8Hxi4+VsJpMW9fQMkeg=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-pXZXrxjHWzFp5CgAl1EhpRouq990+ScpWqDe7goNvvI=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <style id="antiFrame">html{display:none!important}</style>
 <script>if (window.self === window.top) { document.getElementById("antiFrame").remove(); } else { window.top.location = window.self.location.href; }</script>
@@ -508,6 +508,13 @@ const CONFIG = {
     IBJJF: { nome: "International Brazilian Jiu-Jitsu Federation (Federação Internacional de Jiu-Jitsu Brasileiro)", site: "https://ibjjf.com" },
   },
 
+  // Estatísticas de visitas (GoatCounter, sem cookies). goatcounter: código da conta, ex.: "dojobarreto".
+  // Vazio = desligado. Só conta acessos feitos no domínio abaixo (prévias e testes não contam).
+  estatisticas: {
+    goatcounter: "",
+    dominio: "www.dojobarreto.com.br",
+  },
+
   // Caixa de boas-vindas (aparece uma vez por visitante). ativo: false para desligar.
   boasVindas: {
     ativo: true,
@@ -874,6 +881,28 @@ if (C.secoes.horarios) {
   };
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
   setTimeout(show, calm ? 300 : 2600); // espera a animação da logo terminar
+})();
+
+// Estatísticas (GoatCounter): uma contagem por página aberta + cliques nos links principais.
+// Não usa cookies nem guarda nada no navegador; não carrega script de terceiros.
+(() => {
+  const E = C.estatisticas || {};
+  if (!/^[a-z0-9-]+$/.test(E.goatcounter || "") || location.hostname !== E.dominio || navigator.webdriver) return;
+  const base = `https://${E.goatcounter}.goatcounter.com/count`;
+  const enviar = dados => {
+    const url = base + "?" + new URLSearchParams({ ...dados, rnd: Math.random().toString(36).slice(2) });
+    if (!(navigator.sendBeacon && navigator.sendBeacon(url))) new Image().src = url;
+  };
+  enviar({ p: location.pathname, r: document.referrer, t: document.title, s: String(screen.width) });
+  // eventos: Instagram, siglas e "Como chegar"
+  document.addEventListener("click", e => {
+    const a = e.target.closest("#ig, a[href*='instagram.com'], .go a, .sig");
+    if (!a) return;
+    const nome = a.classList.contains("sig") ? "sigla-" + a.dataset.sig
+      : a.closest(".go") ? "rota-" + a.textContent.trim().toLowerCase().replace(/\s+/g, "-")
+      : "instagram";
+    enviar({ p: nome, t: nome, e: "true" });
+  });
 })();
 
 // Ampliar imagem (Sobre)
