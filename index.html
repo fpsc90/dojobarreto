@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-/jNWijiYJu8NKOtJHiwgFtbRydkGUHxdQVH6NNStPqw=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-ib2MYkXKr2bE2eXG3P7ZcwqLzyWVe2LaL5sbYYWa7RI=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <style id="antiFrame">html{display:none!important}</style>
 <script>if (window.self === window.top) { document.getElementById("antiFrame").remove(); } else { window.top.location = window.self.location.href; }</script>
@@ -182,7 +182,9 @@ button.zoom{cursor:zoom-in;position:relative;display:block;width:100%;padding:0;
 /* Visualização ampliada */
 .lb{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:grid;place-items:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));cursor:zoom-out;animation:lbIn .35s ease}
 .lb[hidden]{display:none}
-.lb img{width:auto;height:auto;max-width:min(100%,1600px);max-height:calc(100vh - 96px);max-height:calc(100dvh - 96px);object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb.pan{place-items:center start;overflow-x:auto;overscroll-behavior:contain}
+.lb.pan img{max-width:none;height:calc(100vh - 96px);height:calc(100dvh - 96px);max-height:none}
+.lb img{width:auto;height:auto;max-width:min(100%,2560px);max-height:calc(100vh - 96px);max-height:calc(100dvh - 96px);object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 .lb button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));width:48px;height:48px;background:none;border:1px solid var(--line);color:var(--fg);font-size:1.6rem;cursor:pointer}
 .lb button:hover{border-color:var(--accent);color:var(--accent)}
 @keyframes lbIn{from{opacity:0}to{opacity:1}}
@@ -190,6 +192,13 @@ button.zoom{cursor:zoom-in;position:relative;display:block;width:100%;padding:0;
 @media (max-width:900px){.prof,.prof:nth-child(even){grid-template-columns:1fr;gap:32px}.prof:nth-child(even) .pic{order:0}.prof .pic,#sobre .split .pic{position:static;max-width:440px}.profs{gap:80px}}
 .prof:hover .media{transform:scale(1.04);filter:grayscale(0)}
 .prof .pic.on .media{filter:grayscale(0)}
+
+/* NOSSAS ORIGENS: pôster da reportagem */
+.poster{margin:44px 0 0}
+.poster .zoom{display:block;width:100%;aspect-ratio:2560/1270;max-width:100%;overflow:hidden;border:1px solid rgba(201,165,133,.35);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.poster .media{width:100%;height:100%;object-fit:cover;filter:none}
+.poster figcaption{margin-top:14px;color:var(--muted);font-size:.85rem;font-style:italic}
+.car-head.sub{justify-content:flex-end;margin-top:56px}
 
 /* GALERIA DE COMPETIÇÃO (carrossel) */
 .car-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
@@ -389,7 +398,7 @@ const CONFIG = {
   },
 
   // Liga/desliga seções inteiras
-  secoes: { sobre:true, programas:true, professores:true, competicao:true, horarios:true, planos:true, cta:true, contato:true },
+  secoes: { sobre:true, programas:true, professores:true, origens:true, competicao:true, horarios:true, planos:true, cta:true, contato:true },
 
   sobre: {
     foto: "img/sobre.jpg",
@@ -438,6 +447,23 @@ const CONFIG = {
       ],
     },
   ],
+
+  // Nossas Origens: reportagem traduzida (pôster ampliável) + carrossel de fotos históricas
+  origens: {
+    kicker: "Nossas Origens",
+    titulo: "Barreto Jiu-Jitsu",
+    texto: "A linhagem que forma nossos professores: a família Barreto e a sua contribuição para a história do Jiu-Jitsu brasileiro.",
+    poster: {
+      src: "img/origens-poster.jpg", w: 2560, h: 1270,
+      alt: "Reportagem “O Efeito Barreto: Jiu-Jitsu Brasileiro Direto da Fonte”, traduzida para o português, com fotos de Álvaro Barreto demonstrando técnicas",
+      credito: "Reportagem “The Barreto Effect”, de Edward Pollard (texto) e Rick Hustead (fotografia), traduzida para o português. Toque na imagem para ampliar.",
+    },
+    fotos: [
+      { src: "img/origem1.jpg", w: 1280, h: 1030, alt: "Mestre faixa-vermelha da família Barreto aplicando uma técnica de projeção em demonstração" },
+      { src: "img/origem2.jpg", w: 1106, h: 1180, alt: "Mestre faixa-vermelha da família Barreto em demonstração de defesa, segurando o braço do oponente" },
+      { src: "img/origem3.jpg", w: 1280, h: 1040, alt: "Mestre faixa-vermelha da família Barreto aplicando uma técnica de perna em seminário" },
+    ],
+  },
 
   // Galeria de Competição (carrossel). Para adicionar: copie uma linha { ... } e troque o arquivo.
   competicao: {
@@ -618,24 +644,52 @@ S.professores = () => `
     </article>`).join("")}</div>
 </div></section>`;
 
+// ids de cada carrossel (a Galeria mantém os ids originais)
+const CARROSSEIS = {
+  competicao: { track: "track", prev: "carPrev", next: "carNext", now: "carNow", bar: "carBar" },
+  origens: { track: "oriTrack", prev: "oriPrev", next: "oriNext", now: "oriNow", bar: "oriBar" },
+};
+const pad2 = x => String(x).padStart(2, "0");
+const carNav = (id, n) => `
+    <div class="car-nav">
+      <span class="car-count"><b id="${id.now}">01</b> / ${pad2(n)}</span>
+      <button type="button" class="car-btn" id="${id.prev}" aria-label="Foto anterior">&#8592;</button>
+      <button type="button" class="car-btn" id="${id.next}" aria-label="Próxima foto">&#8594;</button>
+    </div>`;
+const carTrack = (id, fotos) => `
+  <div class="carousel rv">
+    <div class="track" id="${id.track}" tabindex="0">${fotos.map((f, i) => `
+      <figure class="slide" style="aspect-ratio:${f.w}/${f.h}"><img src="${esc(f.src)}" alt="${esc(f.alt)}" width="${f.w}" height="${f.h}" loading="${i < 3 ? "eager" : "lazy"}"></figure>`).join("")}
+    </div>
+    <div class="car-bar"><i id="${id.bar}"></i></div>
+  </div>`;
+
+S.origens = () => {
+  const O = C.origens, id = CARROSSEIS.origens;
+  return `
+<section id="origens"><div class="wrap">
+  <div class="car-head rv">
+    <div><p class="kicker">${esc(O.kicker)}</p><h2>${esc(O.titulo)}</h2><p class="lead">${esc(O.texto)}</p></div>
+  </div>
+  <figure class="poster rv">
+    <button type="button" class="zoom" aria-label="Ampliar a reportagem">
+      <img class="media" src="${esc(O.poster.src)}" alt="${esc(O.poster.alt)}" width="${O.poster.w}" height="${O.poster.h}" loading="lazy">
+      <span class="zoom-ico" aria-hidden="true">⤢</span>
+    </button>
+    <figcaption>${esc(O.poster.credito)}</figcaption>
+  </figure>
+  <div class="car-head sub rv">${carNav(id, O.fotos.length)}</div>
+  ${carTrack(id, O.fotos)}
+</div></section>`;
+};
+
 S.competicao = () => {
-  const G = C.competicao, n = G.fotos.length, pad = x => String(x).padStart(2, "0");
+  const G = C.competicao, id = CARROSSEIS.competicao;
   return `
 <section id="competicao"><div class="wrap">
   <div class="car-head rv">
-    <div><p class="kicker">Galeria</p><h2>${esc(G.titulo)}</h2><p class="lead">${esc(G.texto)}</p></div>
-    <div class="car-nav">
-      <span class="car-count"><b id="carNow">01</b> / ${pad(n)}</span>
-      <button type="button" class="car-btn" id="carPrev" aria-label="Foto anterior">&#8592;</button>
-      <button type="button" class="car-btn" id="carNext" aria-label="Próxima foto">&#8594;</button>
-    </div>
-  </div>
-  <div class="carousel rv">
-    <div class="track" id="track" tabindex="0">${G.fotos.map((f, i) => `
-      <figure class="slide" style="aspect-ratio:${f.w}/${f.h}"><img src="${esc(f.src)}" alt="${esc(f.alt)}" width="${f.w}" height="${f.h}" loading="${i < 3 ? "eager" : "lazy"}"></figure>`).join("")}
-    </div>
-    <div class="car-bar"><i id="carBar"></i></div>
-  </div>
+    <div><p class="kicker">Galeria</p><h2>${esc(G.titulo)}</h2><p class="lead">${esc(G.texto)}</p></div>${carNav(id, G.fotos.length)}
+  </div>${carTrack(id, G.fotos)}
 </div></section>`;
 };
 
@@ -741,12 +795,12 @@ if (C.secoes.horarios) {
   showDia(C.horarios[hoje] ? hoje : Object.keys(C.horarios)[0]);
 }
 
-// Carrossel da Galeria de Competição: a foto do centro fica em destaque
-(() => {
-  const track = document.getElementById("track");
+// Carrosséis (Nossas Origens e Registros de Momentos): a foto do centro fica em destaque
+function iniciarCarrossel(id) {
+  const track = document.getElementById(id.track);
   if (!track) return;
-  const slides = [...track.children], prev = document.getElementById("carPrev"), next = document.getElementById("carNext");
-  const bar = document.getElementById("carBar"), now = document.getElementById("carNow");
+  const slides = [...track.children], prev = document.getElementById(id.prev), next = document.getElementById(id.next);
+  const bar = document.getElementById(id.bar), now = document.getElementById(id.now);
   const last = slides.length - 1;
   // Se a última foto for estreita demais, a penúltima não teria espaço para ficar no centro.
   // Nesse caso abrimos um respiro à direita para que ela centralize (e a última também).
@@ -801,7 +855,8 @@ if (C.secoes.horarios) {
   addEventListener("pointerup", () => { if (!down) return; down = false; track.style.scrollBehavior = ""; track.style.scrollSnapType = ""; if (moved) go(0); setTimeout(() => moved = false, 0); });
   track.addEventListener("dragstart", e => e.preventDefault());
   update();
-})();
+}
+for (const id of Object.values(CARROSSEIS)) iniciarCarrossel(id);
 
 // Professores: a foto ganha cor quando chega ao centro da tela
 (() => {
@@ -915,7 +970,11 @@ if (C.secoes.horarios) {
   lb.innerHTML = `<button type="button" aria-label="Fechar">×</button>`;
   document.body.appendChild(lb);
   const big = document.createElement("img"); let back = null; // a imagem só entra na página quando é aberta
-  const open = el => { const im = el.querySelector("img"); if (!im) return; back = el; big.src = im.currentSrc || im.src; big.alt = im.alt; if (!big.isConnected) lb.prepend(big); lb.hidden = false; document.body.style.overflow = "hidden"; lb.querySelector("button").focus(); };
+  const open = el => { const im = el.querySelector("img"); if (!im) return; back = el; big.src = im.currentSrc || im.src; big.alt = im.alt; if (!big.isConnected) lb.prepend(big);
+    // imagem bem larga em tela estreita (pôster no celular): mostra na altura da tela e permite rolar de lado
+    const w = im.naturalWidth || +im.getAttribute("width"), h = im.naturalHeight || +im.getAttribute("height");
+    lb.classList.toggle("pan", h > 0 && w / h > 1.5 && innerWidth < 900);
+    lb.hidden = false; lb.scrollLeft = 0; document.body.style.overflow = "hidden"; lb.querySelector("button").focus(); };
   const close = () => { lb.hidden = true; document.body.style.overflow = ""; if (back) back.focus(); };
   document.querySelectorAll("button.zoom").forEach(el => el.addEventListener("click", () => open(el)));
   lb.addEventListener("click", close);
