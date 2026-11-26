@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-SYsdIFd+f+xHUAMKak/QnQSw1xdhA161kLcog2soegQ=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-DUIEd+q0GoFZYow1SUtNfHCtPYJ5J6c1bICPedQ39RE=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <style id="antiFrame">html{display:none!important}</style>
 <script>if (window.self === window.top) { document.getElementById("antiFrame").remove(); } else { window.top.location = window.self.location.href; }</script>
@@ -193,18 +193,12 @@ button.zoom{cursor:zoom-in;position:relative;display:block;width:100%;padding:0;
 .prof:hover .media{transform:scale(1.04);filter:grayscale(0)}
 .prof .pic.on .media{filter:grayscale(0)}
 
-/* NOSSAS ORIGENS: linhagem e personagens */
-.linhagem{list-style:none;margin:40px 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 0}
-.linhagem li{font-family:var(--head);text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;color:var(--g4);border:1px solid rgba(201,165,133,.4);padding:8px 14px}
-.linhagem li.seta{border:0;padding:0 10px;color:var(--accent);letter-spacing:0;font-size:1rem}
-.linhagem li:last-child{background:linear-gradient(105deg,var(--g2),var(--g4) 40%,var(--g3) 60%,var(--g2));color:#1b130d;border-color:var(--g3)}
-.historia{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 56px;margin-top:48px}
+/* NOSSAS ORIGENS: personagens */
+.historia{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 56px;margin-top:40px}
 .historia article{border-top:1px solid var(--line);padding-top:22px}
 .historia h3{font-size:1.05rem;letter-spacing:.16em;color:var(--accent);margin-bottom:10px}
 .historia p{color:var(--muted);font-size:.98rem;text-wrap:pretty}
-.historia article:last-child{grid-column:1/-1;border-top-color:rgba(201,165,133,.45)}
-.historia article:last-child p{color:var(--fg);font-size:1.05rem;max-width:760px}
-@media (max-width:760px){.historia{grid-template-columns:1fr;gap:26px}.linhagem li{font-size:.7rem;padding:7px 10px}}
+@media (max-width:760px){.historia{grid-template-columns:1fr;gap:26px}}
 
 /* NOSSAS ORIGENS: pôster da reportagem */
 .poster{margin:44px 0 0}
@@ -466,15 +460,12 @@ const CONFIG = {
     kicker: "Nossas Origens",
     titulo: "Barreto Jiu-Jitsu",
     texto: "A linhagem que forma nossos professores: a família Barreto e a sua contribuição para a história do Jiu-Jitsu brasileiro.",
-    // linha do tempo da linhagem (do mais antigo ao Dojo)
-    linhagem: ["Mitsuyo Maeda", "Carlos Gracie", "Hélio Gracie", "João Alberto e Álvaro Barreto", "Eduardo e Andressa Guirau", "Dojo Barreto"],
     // personagens da história; um bloco por item
     historia: [
       { nome: "Hélio Gracie", texto: "Grande mestre da família Gracie, foi o elo entre o jiu-jitsu trazido ao Brasil por Mitsuyo Maeda e Carlos Gracie e a família Barreto. Por volta de 1950, um amigo de Carlos Gracie levou o filho para treinar com Hélio: começava ali a história da Barreto no jiu-jitsu." },
       { nome: "Grande Mestre João Alberto Barreto", texto: "Nascido em 1935, foi um dos lutadores mais temidos da Academia Gracie nos anos 1950, invicto e estrela do programa de TV “Heróis do Ringue”. Tornou-se um dos professores principais da academia, levou o irmão Álvaro para o tatame e, em 1993, esteve entre os primeiros árbitros do UFC. É faixa-vermelha." },
       { nome: "Grande Mestre Álvaro Barreto", texto: "O educador da família. Nascido em 1941, entrou na Academia Gracie aos 10 anos e, em 1968, abriu a Academia Corpo Quatro, em Copacabana. Faixa-vermelha de 9º grau desde 2005, ajudou a formar mais de 300 faixas-pretas." },
       { nome: "A organização do esporte", texto: "Em 1967, os Grandes Mestres João Alberto e Álvaro Barreto participaram da criação da primeira federação de jiu-jitsu do Brasil, presidida por Hélio Gracie: um passo decisivo para transformar a arte em esporte organizado." },
-      { nome: "O legado no Dojo Barreto", texto: "Os professores Eduardo e Andressa Guirau foram graduados pelos Grandes Mestres João Alberto e Álvaro Barreto e pelo Mestre Roberto Macedo. Hoje, levam essa linhagem ao Dojo Barreto, em Brasília." },
     ],
     poster: {
       src: "img/origens-poster.jpg", w: 2560, h: 1270,
@@ -694,7 +685,6 @@ S.origens = () => {
   <div class="car-head rv">
     <div><p class="kicker">${esc(O.kicker)}</p><h2>${esc(O.titulo)}</h2><p class="lead">${esc(O.texto)}</p></div>
   </div>
-  <ol class="linhagem rv">${O.linhagem.map(n => `<li>${esc(n)}</li>`).join(`<li class="seta" aria-hidden="true">→</li>`)}</ol>
   <div class="historia">${O.historia.map(h => `
     <article class="rv"><h3>${esc(h.nome)}</h3><p>${sig(h.texto)}</p></article>`).join("")}
   </div>
