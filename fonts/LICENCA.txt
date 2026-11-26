@@ -1,0 +1,8 @@
+Fontes usadas no site do Dojo Barreto, hospedadas no próprio site (sem enviar dados ao Google):
+
+- Oswald (Vernon Adams, Kalapi Gajjar, Cyreal) — SIL Open Font License 1.1
+- Inter (Rasmus Andersson) — SIL Open Font License 1.1
+
+Arquivos obtidos do Google Fonts (subconjuntos latin e latin-ext, formato woff2 variável).
+A licença SIL OFL 1.1 permite usar, embutir e redistribuir as fontes, inclusive em sites comerciais.
+Texto da licença: https://openfontlicense.org

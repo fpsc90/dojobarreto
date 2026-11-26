@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-M3f1EC6N2+DM1w8pE11HaMgyeIIMCFim6bBt6FQdC00=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://dojobarretosite.goatcounter.com; media-src 'self'; connect-src https://dojobarretosite.goatcounter.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; script-src 'self' 'sha256-/jNWijiYJu8NKOtJHiwgFtbRydkGUHxdQVH6NNStPqw=' 'sha256-ZgBqeGd9Sw/5z3DaaV60iQQtmOZ1PvMkC4dD0P8Wkdo='; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <style id="antiFrame">html{display:none!important}</style>
 <script>if (window.self === window.top) { document.getElementById("antiFrame").remove(); } else { window.top.location = window.self.location.href; }</script>
@@ -23,9 +23,9 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Dojo Barreto: academia de Jiu-Jitsu em Brasília, da Equipe Barreto. Turmas adulto, kids e feminina com os professores Eduardo e Andressa Guirau.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/oswald-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fontes.css">
 
 <!--
 =====================================================================
@@ -258,12 +258,14 @@ button.zoom{cursor:zoom-in;position:relative;display:block;width:100%;padding:0;
 .map span{font-family:var(--head);letter-spacing:.25em;text-transform:uppercase;font-size:.8rem}
 
 /* FOOTER */
-footer{border-top:1px solid var(--line);padding:60px 0 40px}
+footer{border-top:1px solid var(--line);padding:60px 0 110px} /* espaço para o botão flutuante do Instagram */
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
 .social{display:flex;gap:22px}
 .social a{font-family:var(--head);letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:#bbb}
 .social a:hover{color:var(--accent)}
 footer small{color:#666;letter-spacing:.1em}
+footer .priv{color:#9a9a9a;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(201,165,133,.5)}
+footer .priv:hover{color:var(--accent)}
 
 /* Itens em breve / desabilitados */
 [hidden]{display:none!important}
@@ -727,7 +729,7 @@ const redes = [["Instagram",C.instagram],["Facebook",C.facebook],["YouTube",C.yo
 document.getElementById("footer").innerHTML = `
   <div class="logo">${esc(C.nome)}</div>
   <div class="social">${redes.map(([n,u]) => `<a href="${esc(safeUrl(u))}" target="_blank" rel="noopener noreferrer">${n}</a>`).join("")}</div>
-  <small>© ${new Date().getFullYear()} ${esc(C.nome)}. Todos os direitos reservados.</small>`;
+  <small>© ${new Date().getFullYear()} ${esc(C.nome)}. Todos os direitos reservados. · <a class="priv" href="privacidade.html">Política de Privacidade</a></small>`;
 const waBtn = document.getElementById("wa");
 if (C.whatsappAtivo) waBtn.href = waLink; else waBtn.remove(); // sem WhatsApp, o botão sai da página
 if (C.instagram) { const ig = document.getElementById("ig"); ig.href = safeUrl(C.instagram); ig.hidden = false; ig.classList.toggle("solo", !C.whatsappAtivo); }
